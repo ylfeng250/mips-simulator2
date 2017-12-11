@@ -84,7 +84,8 @@ def main():
 
 
     #scoreboarding 算法
-    isBreak = False
+    s = scoreboarding(currentAddress,dataAddress,flags, opCodes, rs, rt, rd, shiftAmts, functionCodes, simOut)
+    s.do()
 
 
 if __name__ == "__main__":

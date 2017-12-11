@@ -1,3 +1,18 @@
+# 根据flag判断是第一类操作还是第二类操作，然后映射操作符
+opc = {
+    "0000": ['J', 'ADD'],
+    "0001": ['JR', 'SUB'],
+    "0010": ['BEQ', 'MUL'],
+    "0011": ['BLTZ', 'AND'],
+    "0100": ['BGTZ', 'OR'],
+    "0101": ['BREAK', 'XOR'],
+    "0110": ['SW', 'NOR'],
+    '0111': ['LW', 'SLT'],
+    '1000': ['SLL', 'ADDI'],
+    '1001': ['SRL', 'ANDI'],
+    '1010': ['SRA', 'ORI'],
+    '1011': ['NOP', 'XORI']
+}
 # 获取寄存器的名字
 def getRegName(rs):
     if int(rs, base=2) >= 0 and int(rs, base=2) <= 31:

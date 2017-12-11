@@ -35,7 +35,7 @@ def case_BGTZ(rs, rt, rd, shiftAmt,functionCode,regValues,memoryValues,dataAddre
 def case_BREAK(rs, rt, rd, shiftAmt,functionCode,regValues,memoryValues,dataAddress,currentAddress):
     currentAddress[0] += 4
 
-# SW
+# SW memory[base+offset] ← rt
 def case_SW(rs, rt, rd, shiftAmt,functionCode,regValues,memoryValues,dataAddress,currentAddress):
     offset = rd + shiftAmt + functionCode
     # print(int((regValues[int(rs, 2)] + int(offset, 2))
