@@ -2,8 +2,8 @@
 Cycle:1
 
 IF Unit:
-	Waiting Instruction:
-	Executed Instruction:
+	Waiting Instruction: 
+	Executed Instruction: 
 Pre-Issue Queue:
 	Entry 0: [ADD R1, R0, R0]
 	Entry 1: [ADDI R2, R0, #2]
@@ -33,7 +33,7 @@ Cycle:2
 
 IF Unit:
 	Waiting Instruction: [BEQ R1, R2, #28]
-	Executed Instruction:
+	Executed Instruction: 
 Pre-Issue Queue:
 	Entry 0: [ADDI R2, R0, #2]
 	Entry 1:
@@ -63,7 +63,7 @@ Cycle:3
 
 IF Unit:
 	Waiting Instruction: [BEQ R1, R2, #28]
-	Executed Instruction:
+	Executed Instruction: 
 Pre-Issue Queue:
 	Entry 0:
 	Entry 1:
@@ -93,7 +93,7 @@ Cycle:4
 
 IF Unit:
 	Waiting Instruction: [BEQ R1, R2, #28]
-	Executed Instruction:
+	Executed Instruction: 
 Pre-Issue Queue:
 	Entry 0:
 	Entry 1:
@@ -123,7 +123,7 @@ Cycle:5
 
 IF Unit:
 	Waiting Instruction: [BEQ R1, R2, #28]
-	Executed Instruction:
+	Executed Instruction: 
 Pre-Issue Queue:
 	Entry 0:
 	Entry 1:
@@ -152,7 +152,7 @@ Data
 Cycle:6
 
 IF Unit:
-	Waiting Instruction:
+	Waiting Instruction: 
 	Executed Instruction: [BEQ R1, R2, #28]
 Pre-Issue Queue:
 	Entry 0:
@@ -182,8 +182,8 @@ Data
 Cycle:7
 
 IF Unit:
-	Waiting Instruction:
-	Executed Instruction:
+	Waiting Instruction: 
+	Executed Instruction: 
 Pre-Issue Queue:
 	Entry 0: [SLL R16, R1, #2]
 	Entry 1: [LW R3, 300(R16)]
@@ -212,8 +212,8 @@ Data
 Cycle:8
 
 IF Unit:
-	Waiting Instruction:
-	Executed Instruction:
+	Waiting Instruction: 
+	Executed Instruction: 
 Pre-Issue Queue:
 	Entry 0: [LW R3, 300(R16)]
 	Entry 1: [LW R4, 320(R16)]
@@ -242,8 +242,8 @@ Data
 Cycle:9
 
 IF Unit:
-	Waiting Instruction:
-	Executed Instruction:
+	Waiting Instruction: 
+	Executed Instruction: 
 Pre-Issue Queue:
 	Entry 0: [LW R3, 300(R16)]
 	Entry 1: [LW R4, 320(R16)]
@@ -272,8 +272,8 @@ Data
 Cycle:10
 
 IF Unit:
-	Waiting Instruction:
-	Executed Instruction:
+	Waiting Instruction: 
+	Executed Instruction: 
 Pre-Issue Queue:
 	Entry 0: [LW R3, 300(R16)]
 	Entry 1: [LW R4, 320(R16)]
@@ -302,8 +302,8 @@ Data
 Cycle:11
 
 IF Unit:
-	Waiting Instruction:
-	Executed Instruction:
+	Waiting Instruction: 
+	Executed Instruction: 
 Pre-Issue Queue:
 	Entry 0: [LW R4, 320(R16)]
 	Entry 1: [ADD R5, R3, R4]
@@ -332,8 +332,8 @@ Data
 Cycle:12
 
 IF Unit:
-	Waiting Instruction:
-	Executed Instruction:
+	Waiting Instruction: 
+	Executed Instruction: 
 Pre-Issue Queue:
 	Entry 0: [ADD R5, R3, R4]
 	Entry 1: [SW R5, 340(R16)]
@@ -362,7 +362,7 @@ Data
 Cycle:13
 
 IF Unit:
-	Waiting Instruction:
+	Waiting Instruction: 
 	Executed Instruction: [J #264]
 Pre-Issue Queue:
 	Entry 0: [ADD R5, R3, R4]
@@ -393,7 +393,7 @@ Cycle:14
 
 IF Unit:
 	Waiting Instruction: [BEQ R1, R2, #28]
-	Executed Instruction:
+	Executed Instruction: 
 Pre-Issue Queue:
 	Entry 0: [ADD R5, R3, R4]
 	Entry 1: [SW R5, 340(R16)]
@@ -423,7 +423,7 @@ Cycle:15
 
 IF Unit:
 	Waiting Instruction: [BEQ R1, R2, #28]
-	Executed Instruction:
+	Executed Instruction: 
 Pre-Issue Queue:
 	Entry 0: [ADD R5, R3, R4]
 	Entry 1: [SW R5, 340(R16)]
@@ -452,7 +452,7 @@ Data
 Cycle:16
 
 IF Unit:
-	Waiting Instruction:
+	Waiting Instruction: 
 	Executed Instruction: [BEQ R1, R2, #28]
 Pre-Issue Queue:
 	Entry 0: [SW R5, 340(R16)]
@@ -482,8 +482,8 @@ Data
 Cycle:17
 
 IF Unit:
-	Waiting Instruction:
-	Executed Instruction:
+	Waiting Instruction: 
+	Executed Instruction: 
 Pre-Issue Queue:
 	Entry 0: [SW R5, 340(R16)]
 	Entry 1: [SLL R16, R1, #2]
@@ -512,8 +512,8 @@ Data
 Cycle:18
 
 IF Unit:
-	Waiting Instruction:
-	Executed Instruction:
+	Waiting Instruction: 
+	Executed Instruction: 
 Pre-Issue Queue:
 	Entry 0: [SW R5, 340(R16)]
 	Entry 1: [SLL R16, R1, #2]
@@ -542,8 +542,8 @@ Data
 Cycle:19
 
 IF Unit:
-	Waiting Instruction:
-	Executed Instruction:
+	Waiting Instruction: 
+	Executed Instruction: 
 Pre-Issue Queue:
 	Entry 0: [SLL R16, R1, #2]
 	Entry 1: [LW R3, 300(R16)]
@@ -572,8 +572,8 @@ Data
 Cycle:20
 
 IF Unit:
-	Waiting Instruction:
-	Executed Instruction:
+	Waiting Instruction: 
+	Executed Instruction: 
 Pre-Issue Queue:
 	Entry 0: [LW R3, 300(R16)]
 	Entry 1: [LW R4, 320(R16)]
@@ -602,8 +602,8 @@ Data
 Cycle:21
 
 IF Unit:
-	Waiting Instruction:
-	Executed Instruction:
+	Waiting Instruction: 
+	Executed Instruction: 
 Pre-Issue Queue:
 	Entry 0: [LW R3, 300(R16)]
 	Entry 1: [LW R4, 320(R16)]
@@ -632,8 +632,8 @@ Data
 Cycle:22
 
 IF Unit:
-	Waiting Instruction:
-	Executed Instruction:
+	Waiting Instruction: 
+	Executed Instruction: 
 Pre-Issue Queue:
 	Entry 0: [LW R3, 300(R16)]
 	Entry 1: [LW R4, 320(R16)]
@@ -662,8 +662,8 @@ Data
 Cycle:23
 
 IF Unit:
-	Waiting Instruction:
-	Executed Instruction:
+	Waiting Instruction: 
+	Executed Instruction: 
 Pre-Issue Queue:
 	Entry 0: [LW R4, 320(R16)]
 	Entry 1: [ADD R5, R3, R4]
@@ -692,8 +692,8 @@ Data
 Cycle:24
 
 IF Unit:
-	Waiting Instruction:
-	Executed Instruction:
+	Waiting Instruction: 
+	Executed Instruction: 
 Pre-Issue Queue:
 	Entry 0: [ADD R5, R3, R4]
 	Entry 1: [SW R5, 340(R16)]
@@ -722,7 +722,7 @@ Data
 Cycle:25
 
 IF Unit:
-	Waiting Instruction:
+	Waiting Instruction: 
 	Executed Instruction: [J #264]
 Pre-Issue Queue:
 	Entry 0: [ADD R5, R3, R4]
@@ -753,7 +753,7 @@ Cycle:26
 
 IF Unit:
 	Waiting Instruction: [BEQ R1, R2, #28]
-	Executed Instruction:
+	Executed Instruction: 
 Pre-Issue Queue:
 	Entry 0: [ADD R5, R3, R4]
 	Entry 1: [SW R5, 340(R16)]
@@ -783,7 +783,7 @@ Cycle:27
 
 IF Unit:
 	Waiting Instruction: [BEQ R1, R2, #28]
-	Executed Instruction:
+	Executed Instruction: 
 Pre-Issue Queue:
 	Entry 0: [ADD R5, R3, R4]
 	Entry 1: [SW R5, 340(R16)]
@@ -812,7 +812,7 @@ Data
 Cycle:28
 
 IF Unit:
-	Waiting Instruction:
+	Waiting Instruction: 
 	Executed Instruction: [BEQ R1, R2, #28]
 Pre-Issue Queue:
 	Entry 0: [SW R5, 340(R16)]
@@ -842,8 +842,8 @@ Data
 Cycle:29
 
 IF Unit:
-	Waiting Instruction:
-	Executed Instruction:[BREAK]
+	Waiting Instruction: 
+	Executed Instruction: [BREAK]
 Pre-Issue Queue:
 	Entry 0: [SW R5, 340(R16)]
 	Entry 1:
