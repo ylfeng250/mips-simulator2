@@ -74,63 +74,6 @@ def outputDis(instruction, currentAddress, flag, opCode, rs, rt, rd, shiftAmt,
     if instructionName == 'BREAK':
         return True
 
-# 执行命令 生成sim文件
-
-
-def outputSim(dataAddress, currentAddress, flag, opCode, rs, rt, rd, shiftAmt,
-              functionCode, regValues, memoryValues, count, simOut):
-    instructionName = opc[opCode][flag]  # 获取指令名称
-    instructionArgs = instructions.switch[instructionName](
-        rs, rt, rd, shiftAmt, functionCode)  # 获取指令参数
-    returnFlag = False  # 是否结束标志
-
-    if instructionName == 'BREAK':
-        returnFlag = True
-    simOut.write("--------------------" + '\n')
-    if instructionName != 'BREAK':
-        simOut.write("Cycle:" + str(count[0] + 1) + '\t' + str(
-            currentAddress[0]) + '\t' + instructionName + ' ' + instructionArgs + '\n')
-    else:
-        simOut.write("Cycle:" + str(count[0] + 1) + '\t' +
-                     str(currentAddress[0]) + '\t' + instructionName + '\n')
-    simOut.write('\n')
-
-    changeRegValues.switch[instructionName](
-        rs, rt, rd, shiftAmt, functionCode, regValues, memoryValues, dataAddress, currentAddress)
-
-    simOut.write('Registers' + '\n')
-    simOut.write('R00:' + '\t' + str(regValues[0]) + '\t' + str(regValues[1]) + '\t' + str(regValues[2])
-                 + '\t' +
-                 str(regValues[3]) + '\t' + str(regValues[4]) +
-                 '\t' + str(regValues[5]) + '\t'
-                 + str(regValues[6]) + '\t' + str(regValues[7]) + '\n')
-    simOut.write('R08:' + '\t' + str(regValues[8]) + '\t' + str(regValues[9]) + '\t' +
-                 str(regValues[10]) + '\t' + str(regValues[11]) + '\t' + str(regValues[12]) + '\t' +
-                 str(regValues[13]) + '\t' + str(regValues[14]) + '\t' + str(regValues[15]) + '\n')
-    simOut.write('R16:' + '\t' + str(regValues[16]) + '\t' + str(regValues[17]) + '\t' +
-                 str(regValues[18]) + '\t' + str(regValues[19]) + '\t' + str(regValues[20]) + '\t' +
-                 str(regValues[21]) + '\t' + str(regValues[22]) + '\t' + str(regValues[23]) + '\n')
-    simOut.write('R24:' + '\t' + str(regValues[24]) + '\t' + str(regValues[25]) + '\t' +
-                 str(regValues[26]) + '\t' + str(regValues[27]) + '\t' + str(regValues[28]) + '\t' +
-                 str(regValues[29]) + '\t' + str(regValues[30]) + '\t' + str(regValues[31]) + '\n')
-    simOut.write('\n')
-    simOut.write('Data' + '\n')
-    simOut.write(str(dataAddress) + ':\t' + str(memoryValues[0]) + '\t' + str(memoryValues[1]) + '\t' + str(memoryValues[2]) + '\t' +
-                 str(memoryValues[3]) + '\t' + str(memoryValues[4]) + '\t' + str(memoryValues[5]) + '\t' +
-                 str(memoryValues[6]) + '\t' + str(memoryValues[7]) + '\n')
-    simOut.write(str(dataAddress + 32) + ':\t' + str(memoryValues[8]) + '\t' + str(memoryValues[9]) + '\t' + str(memoryValues[10]) + '\t' +
-                 str(memoryValues[11]) + '\t' + str(memoryValues[12]) + '\t' + str(memoryValues[13]) + '\t' +
-                 str(memoryValues[14]) + '\t' + str(memoryValues[15]) + '\n')
-    simOut.write(str(dataAddress + 64) + ':\t' + str(memoryValues[16]) + '\t' + str(memoryValues[17]) + '\t' + str(memoryValues[18]) + '\t' +
-                 str(memoryValues[19]) + '\t' + str(memoryValues[20]) + '\t' + str(memoryValues[21]) + '\t' +
-                 str(memoryValues[22]) + '\t' + str(memoryValues[23]) + '\n')
-    simOut.write('\n')
-
-    count[0] = count[0] + 1
-
-    return returnFlag
-
-
 class scoreboarding:
 
     def __init__(self, currentAddress, memoryValues, dataAddress, flags, opCodes, rs, rt, rd, shiftAmts, functionCodes, simOut):
@@ -283,7 +226,7 @@ class scoreboarding:
             # print(self.store)
             if self.reg_w[base] >= index and self.reg_r[rt_i] >= index and self.reg_w[rt_i] >= index and self.store:
                 is_ok = True
-                print("******************")
+                # print("******************")
             if self.reg_w[rt_i] > index:
                 self.reg_w[rt_i] = index
             if self.reg_r[base] > index:
@@ -566,8 +509,26 @@ class scoreboarding:
         string += 'R24:' + '\t' + str(self.regValues[24]) + '\t' + str(self.regValues[25]) + '\t' +str(self.regValues[26]) + '\t' + str(self.regValues[27]) + '\t' + str(self.regValues[28]) + '\t' +str(self.regValues[29]) + '\t' + str(self.regValues[30]) + '\t' + str(self.regValues[31]) + '\n'
         string += '\n'
         string += 'Data' + '\n'
-        string += str(self.dataAddress) + ':\t' + str(self.memoryValues[0]) + '\t' + str(self.memoryValues[1]) + '\t' + str(self.memoryValues[2]) + '\t' +str(self.memoryValues[3]) + '\t' + str(self.memoryValues[4]) + '\t' + str(self.memoryValues[5]) + '\t' +str(self.memoryValues[6]) + '\t' + str(self.memoryValues[7]) + '\n'
-        string += str(self.dataAddress + 32) + ':\t' + str(self.memoryValues[8]) + '\t' + str(self.memoryValues[9]) + '\t' + str(self.memoryValues[10]) + '\t' +str(self.memoryValues[11]) + '\t' + str(self.memoryValues[12]) + '\t' + str(self.memoryValues[13]) + '\t' +str(self.memoryValues[14]) + '\t' + str(self.memoryValues[15]) + '\n'
+        # string += str(self.dataAddress) + ':\t' + str(self.memoryValues[0]) + '\t' + str(self.memoryValues[1]) + '\t' + str(self.memoryValues[2]) + '\t' +str(self.memoryValues[3]) + '\t' + str(self.memoryValues[4]) + '\t' + str(self.memoryValues[5]) + '\t' +str(self.memoryValues[6]) + '\t' + str(self.memoryValues[7]) + '\n'
+        # string += str(self.dataAddress + 32) + ':\t' + str(self.memoryValues[8]) + '\t' + str(self.memoryValues[9]) + '\t' + str(self.memoryValues[10]) + '\t' +str(self.memoryValues[11]) + '\t' + str(self.memoryValues[12]) + '\t' + str(self.memoryValues[13]) + '\t' +str(self.memoryValues[14]) + '\t' + str(self.memoryValues[15]) + '\n'
+        col_num = 0 # 记录每行的个数，模8
+        row_num = 0 # 记录几行
+        for v in self.memoryValues:
+            if col_num == 0:
+                string += str(self.dataAddress + row_num*32) + ':\t'
+            col_num += 1
+            if col_num == 8:
+                string += str(v) + '\n'
+                col_num = 0
+                row_num += 1
+            else:
+                string += str(v) + '\t'
+        while col_num > 0 and col_num <8:
+            col_num += 1
+            if col_num == 8:
+                string += '0\n'
+            else:
+                string += '0\t' 
         return string
 
     def write2file(self, string):
@@ -590,7 +551,7 @@ class scoreboarding:
             self.post_alu2.extend(post_alu2)
             self.post_mem.extend(post_mem)
             simulation += self.output(self.cycle)
-            print("循环次数", self.cycle)
+            # print("循环次数", self.cycle)
             self.cycle += 1
             # print("执行指令",self.executed_instruction)
             # print("pre_issue",self.pre_issue)
@@ -600,14 +561,11 @@ class scoreboarding:
             # print("alu2:",alu2)
             # print("reg_ready:",self.reg_ready)
             # print(self.memoryValues)
-            print("----------------------------------------")
+            # print("----------------------------------------")
             if self.is_break:
                 break
         # print(simulation)
         self.write2file(simulation)
-
-
-
 
 
 def test():

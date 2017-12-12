@@ -4,8 +4,8 @@ def main():
     # 输入文件名称
     # filename = input("please input bin file\nfor example:sample.txt,you just input sample\n")
     # 修改输入方式，改成命令行的形式
-    # filename = sys.argv[1]
-    filename = "sample"
+    filename = sys.argv[1]
+    # filename = "sample"
     outputFileName = filename + ".txt"
     currentAddress = [256] # 地址从256开始
     instructions = read_bin(outputFileName) # 获取所有的指令集
@@ -17,7 +17,8 @@ def main():
     shiftAmts = [] # 在移位指令中表示移位
     functionCodes = [] # 功能码
     regValues = [0] * 32 # 保存32个寄存器 32个寄存器用5个二进制表示
-    memoryValues = [0] * 60 # 保存内存值
+    # memoryValues = [0] * 60 # 保存内存值
+    memoryValues = []
     count = [0]
     # 输出文件的命名格式
     disOut = open(filename + '_dis.txt', 'w')
@@ -63,10 +64,12 @@ def main():
         # 通过补码计算数值
         if flags[j][0:1] == '0': # 正
             disOut.write(data + '\t' + str(currentAddress[0]) + '\t' + str(int(data, 2)) + '\n')
-            memoryValues[i] = int(data, 2)
+            # memoryValues[i] = int(data, 2)
+            memoryValues.append(int(data, 2))
         else: # 负
             disOut.write(data + '\t' + str(currentAddress[0]) + '\t' + str(int(data, 2) - (1<<bits)) + '\n')
-            memoryValues[i] = int(data, 2) - (1<<bits)
+            # memoryValues[i] = int(data, 2) - (1<<bits)
+            memoryValues.append(int(data, 2) - (1<<bits))
         i = i + 1
     
     # 开始仿真，地址初始化为256
