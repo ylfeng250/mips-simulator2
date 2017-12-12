@@ -133,7 +133,7 @@ def outputSim(dataAddress, currentAddress, flag, opCode, rs, rt, rd, shiftAmt,
 
 class scoreboarding:
 
-    def __init__(self,currentAddress,memoryValues,dataAddress,flags, opCodes, rs, rt, rd, shiftAmts, functionCodes, simOut):
+    def __init__(self, currentAddress, memoryValues, dataAddress, flags, opCodes, rs, rt, rd, shiftAmts, functionCodes, simOut):
         self.currentAddress = currentAddress
         self.dataAddress = dataAddress
         self.memoryValues = memoryValues
@@ -155,7 +155,7 @@ class scoreboarding:
         # 是否存在structural hazards 或者 WAW
         self.is_stall = False
         self.is_break = False
-        self.pre_issue = [] # 存指令在指令队列中的编号
+        self.pre_issue = []  # 存指令在指令队列中的编号
         self.pre_alu1 = []
         self.pre_alu2 = []
         self.pre_mem = []
@@ -163,106 +163,111 @@ class scoreboarding:
         self.post_mem = []
         self.reg_ready = [True] * 32
         # per_issue队列中的4条命令比较 第0条总是最新
-        self.reg_w = [4] * 32 #谁要写这个寄存器
-        self.reg_r = [4] * 32 #谁要读这个寄存器
+        self.reg_w = [4] * 32  # 谁要写这个寄存器
+        self.reg_r = [4] * 32  # 谁要读这个寄存器
         self.executed_instruction = ""
         self.waiting_instruction = ""
     """
     执行分支语句，在执行之前需要判断需要比较的寄存器是否就位
     """
-    def brach(self,instructionName,rs, rt, rd, shiftAmt, functionCode):
+
+    def brach(self, instructionName, rs, rt, rd, shiftAmt, functionCode):
         is_ready = True
         self.is_stall = False
         if instructionName == "J":
             immediate = rs + rt + rd + shiftAmt + functionCode + "00"
             self.currentAddress[0] = (int(immediate, 2))
         if instructionName == 'JR':
-            currentAddress[0] = (int(rs+"00", 2))
+            currentAddress[0] = (int(rs + "00", 2))
         if instructionName == 'BEQ':
             # 获取需要比较的两个寄存器的下标
             rs_index = int(rs, 2)
             rt_index = int(rt, 2)
             # 可能依赖于前面的指令，寄存器中的值是否就位
-            print(self.reg_ready[rs_index],self.reg_ready[rt_index])
-            if  not self.reg_ready[rs_index] or not self.reg_ready[rt_index]:# 没有就位
-                self.is_stall = True # 暂停
+            # print(self.reg_ready[rs_index], self.reg_ready[rt_index])
+            if not self.reg_ready[rs_index] or not self.reg_ready[rt_index]:  # 没有就位
+                self.is_stall = True  # 暂停
                 is_ready = False
             # 寄存器已经就位
             elif self.regValues[rs_index] == self.regValues[rt_index]:
                 offset = rd + shiftAmt + functionCode + "00"
-                self.currentAddress[0] = self.currentAddress[0] + int(offset, 2) + 4
+                self.currentAddress[0] = self.currentAddress[0] + \
+                    int(offset, 2) + 4
             else:
                 self.currentAddress[0] += 4
         if instructionName == 'BLTZ':
             rs_index = int(rs, 2)
             # 可能依赖于前面的指令，寄存器中的值是否就位
-            if not self.reg_ready[rs_index] :# 没有就位
-                self.is_stall = True # 暂停
+            if not self.reg_ready[rs_index]:  # 没有就位
+                self.is_stall = True  # 暂停
                 is_ready = False
             # 寄存器已经就位
-            elif self.regValues[rs_index] <0 :
+            elif self.regValues[rs_index] < 0:
                 offset = rd + shiftAmt + functionCode + "00"
-                self.currentAddress[0] = self.currentAddress[0] + int(offset, 2) + 4
+                self.currentAddress[0] = self.currentAddress[0] + \
+                    int(offset, 2) + 4
             else:
                 self.currentAddress[0] += 4
         if instructionName == 'BGTZ':
             rs_index = int(rs, 2)
             # 可能依赖于前面的指令，寄存器中的值是否就位
-            if not self.reg_ready[rs_index] :# 没有就位
-                self.is_stall = True # 暂停
+            if not self.reg_ready[rs_index]:  # 没有就位
+                self.is_stall = True  # 暂停
                 is_ready = False
             # 寄存器已经就位
             elif self.regValues[rs_index] > 0:
                 offset = rd + shiftAmt + functionCode + "00"
-                self.currentAddress[0] = self.currentAddress[0] + int(offset, 2) + 4
+                self.currentAddress[0] = self.currentAddress[0] + \
+                    int(offset, 2) + 4
             else:
                 self.currentAddress[0] += 4
-        return is_ready # 不ready的话就要进入等待，知道寄存器就位
+        return is_ready  # 不ready的话就要进入等待，知道寄存器就位
     """
     我能issue吗？
     """
-    def is_issue(self,instructionName,rs, rt, rd,index):
+
+    def is_issue(self, instructionName, rs, rt, rd, index):
         is_ok = False
         currentStore = self.store
         if instructionName in ['ADD', 'SUB', 'MUL', 'AND', 'OR', 'XOR', 'NOR', 'SLT']:
-            arg1 = int(rs,2)
-            arg2 = int(rt,2)
-            arg3 = int(rd,2)
+            arg1 = int(rs, 2)
+            arg2 = int(rt, 2)
+            arg3 = int(rd, 2)
             # 序号比现在准备issue的指令的序号大，说明这个寄存器可以操作
             # 在读之前判断是否有人还没写，在写之前看看是否有人没有写，然后更新一波
             if self.reg_w[arg1] >= index and self.reg_w[arg2] >= index and self.reg_r[arg3] >= index and self.reg_w[arg3] >= index:
                 is_ok = True
-                # self.reg_ready[arg3] = False 
+                # self.reg_ready[arg3] = False
                 # 修改寄存器的状态
-                if self.reg_w[arg3] > index:
-                    self.reg_w[arg3] = index
-                if self.reg_r[arg1] > index:
-                    self.reg_r[arg1] = index
-                if self.reg_r[arg2] > index:
-                    self.reg_r[arg2] = index
-        elif instructionName in ['SLL', 'SRL', 'SRA']:  
-            rd_i = int(rd,2)
-            rt_i = int(rt,2)
-            if self.reg_w[rt_i] >= index and self.reg_w[rd_i] >=index and self.reg_r[rd_i] >=index:
+            if self.reg_w[arg3] > index:
+                self.reg_w[arg3] = index
+            if self.reg_r[arg1] > index:
+                self.reg_r[arg1] = index
+            if self.reg_r[arg2] > index:
+                self.reg_r[arg2] = index
+        elif instructionName in ['SLL', 'SRL', 'SRA']:
+            rd_i = int(rd, 2)
+            rt_i = int(rt, 2)
+            if self.reg_w[rt_i] >= index and self.reg_w[rd_i] >= index and self.reg_r[rd_i] >= index:
                 is_ok = True
                 # self.reg_ready[rd_i] = False
-                if self.reg_w[rd_i] >= index:
-                    self.reg_w[rd_i] = index
-                if self.reg_r[rt_i] >= index:
-                    self.reg_r[rt_i] = index
+            if self.reg_w[rd_i] >= index:
+                self.reg_w[rd_i] = index
+            if self.reg_r[rt_i] >= index:
+                self.reg_r[rt_i] = index
         elif instructionName in ("ADDI", "ANDI", "ORI", "XORI"):
-            rs_i = int(rs,2)
-            rt_i = int(rt,2)
+            rs_i = int(rs, 2)
+            rt_i = int(rt, 2)
             if self.reg_w[rs_i] >= index and self.reg_r[rt_i] >= index and self.reg_w[rt_i] >= index:
                 is_ok = True
                 # self.reg_ready[rt_i] = False
-                if self.reg_w[rt_i] > index:
-                    self.reg_w[rt_i] = index
-                if self.reg_r[rs_i] > index:
-                    self.reg_r[rs_i] = index
+            if self.reg_w[rt_i] > index:
+                self.reg_w[rt_i] = index
+            if self.reg_r[rs_i] > index:
+                self.reg_r[rs_i] = index
         elif instructionName == "SW":
-            rt_i = int(rt,2)
-            base = int(rs,2)
+            rt_i = int(rt, 2)
+            base = int(rs, 2)
             if self.reg_w[rt_i] >= index and self.reg_w[base] >= index and self.store:
                 is_ok = True
             else:
@@ -272,95 +277,136 @@ class scoreboarding:
             if self.reg_r[base] > index:
                 self.reg_r[base] = index
         elif instructionName == "LW":
-            rt_i = int(rt,2)
-            base = int(rs,2)
+            rt_i = int(rt, 2)
+            base = int(rs, 2)
+            # print(self.reg_w[base],self.reg_r[rt_i],self.reg_w[rt_i],index)
+            # print(self.store)
             if self.reg_w[base] >= index and self.reg_r[rt_i] >= index and self.reg_w[rt_i] >= index and self.store:
                 is_ok = True
+                print("******************")
             if self.reg_w[rt_i] > index:
                 self.reg_w[rt_i] = index
             if self.reg_r[base] > index:
                 self.reg_r[base] = index
-        
+
         return is_ok, currentStore
     """
     暴力解决问题，不要问为什么，这只是个Project,将寄存器上锁，在寄存器的值没有准备好前不能进行比较
     """
-    def lock_reg(self,instructionName,rs, rt, rd,index):
-        rd_i = int(rd,2)
-        rt_i = int(rt,2)
-        if instructionName in ['ADD', 'SUB', 'MUL', 'AND', 'OR', 'XOR', 'NOR', 'SLT','SLL', 'SRL', 'SRA']:
-            self.reg_ready[rd_i] = False 
-        elif instructionName in ("ADDI", "ANDI", "ORI", "XORI"):           
+
+    def lock_reg(self, instructionName, rs, rt, rd, index):
+        rd_i = int(rd, 2)
+        rt_i = int(rt, 2)
+        if instructionName in ['ADD', 'SUB', 'MUL', 'AND', 'OR', 'XOR', 'NOR', 'SLT', 'SLL', 'SRL', 'SRA']:
+            self.reg_ready[rd_i] = False
+        elif instructionName in ("ADDI", "ANDI", "ORI", "XORI"):
             self.reg_ready[rt_i] = False
         elif instructionName == "LW":
             self.reg_ready[rt_i] = False
+            
+
     def if_unit(self):
         # 取值阶段取到的指令，最多为2条，设置一个队列
-        fetched_instructions = []  
+        fetched_instructions = []
         self.executed_instruction = ""
 
-        if self.is_stall: # 继续看是否能够跳转
+        if self.is_stall:  # 继续看是否能够跳转
             j = int(self.waiting_instruction)
             flag = checkFlag(self.flags[j])
             instructionName = opc[self.opCodes[j]][flag]  # 获取指令名称
-            if self.brach(instructionName,self.rs[j], self.rt[j], self.rd[j], self.shiftAmts[j], self.functionCodes[j]):
+            if self.brach(instructionName, self.rs[j], self.rt[j], self.rd[j], self.shiftAmts[j], self.functionCodes[j]):
                 self.executed_instruction = self.waiting_instruction
                 self.waiting_instruction = ""
         else:
-            fetched_num = 0 # 一次最多取两条指令
-            
-            while not self.is_break and fetched_num < 2 and len(self.pre_issue)+fetched_num <= 4:
-                print("pre_issue长度",len(self.pre_issue)+fetched_num)
-                i = int((self.currentAddress[0] / 4) - 64) # 获取指令所在地址对应的下标
+            fetched_num = 0  # 一次最多取两条指令
+
+            while not self.is_break and fetched_num < 2 and len(self.pre_issue) + fetched_num < 4:
+                # print("pre_issue长度", len(self.pre_issue) + fetched_num)
+                i = int((self.currentAddress[0] / 4) - 64)  # 获取指令所在地址对应的下标
                 # print("*")
                 # print("第几条指令i:",i)
-                print("指令地址current:",self.currentAddress)
+                # print("指令地址current:", self.currentAddress)
                 flag = checkFlag(self.flags[i])
                 instructionName = opc[self.opCodes[i]][flag]  # 获取指令名称
-                if instructionName == "BREAK": 
-                    self.is_break = True # 结束
+                if instructionName == "BREAK":
+                    self.is_break = True  # 结束
                     self.executed_instruction = str(i)
-                elif instructionName in ['J','JR','BEQ','BLTZ','BGTZ']: # 如果是分支指令
+                elif instructionName in ['J', 'JR', 'BEQ', 'BLTZ', 'BGTZ']:  # 如果是分支指令
                     # 检查是否需要改变下一个指令的地址
-                    if self.brach(instructionName,self.rs[i], self.rt[i], self.rd[i], self.shiftAmts[i], self.functionCodes[i]):
+                    if self.brach(instructionName, self.rs[i], self.rt[i], self.rd[i], self.shiftAmts[i], self.functionCodes[i]):
                         self.executed_instruction = str(i)
                     else:
                         self.waiting_instruction = str(i)
-                        break;
+                    break
                 else:
-                    fetched_instructions.append(i) # 只需要记录第几条指令，到时候再解析，方法比较笨但是可以快速理解
-                    self.lock_reg(instructionName,self.rs[i], self.rt[i], self.rd[i],i)
+                    # 只需要记录第几条指令，到时候再解析，方法比较笨但是可以快速理解
+                    fetched_instructions.append(i)
+                    self.lock_reg(instructionName,
+                                  self.rs[i], self.rt[i], self.rd[i], i)
                     self.currentAddress[0] += 4
-                    fetched_num += 1 # 能够取得指令数量减1
-                    
+                    fetched_num += 1  # 能够取得指令数量减1
+
         return fetched_instructions
 
     """
     一次最多issue一条LW/SW到pre_alu1,一条非LW/SW指令到pre_aul2
     """
+
     def issue(self):
         alu1 = []
         alu2 = []
-        issued_alu1 = 0 # 发射到alu1中的指令条数
-        issued_alu2 = 0 # 发射到alu2z中的指令条数
+        issued_alu1 = 0  # 发射到alu1中的指令条数
+        issued_alu2 = 0  # 发射到alu2z中的指令条数
         self.store = True
         i = 0
         while i < len(self.pre_issue):
             # if len(self.pre_alu1) + len(self.pre_alu2) + issued_num == 2:# issue上限
-            if issued_alu1==1 or issued_alu2==1 or len(self.pre_alu1)==2 or len(self.pre_alu2) == 2:# alu1 和 alu2都发射了一条指令就停止
+            # alu1 和 alu2都发射了一条指令就停止
+            if issued_alu1 == 1 or issued_alu2 == 1 or len(self.pre_alu1) == 2 or len(self.pre_alu2) == 2:
                 break
             # print("****************")
-            index = self.pre_issue[i] # 获取指令在instructions中的index
+            index = self.pre_issue[i]  # 获取指令在instructions中的index
             flag = checkFlag(self.flags[index])
-            instructionName = opc[self.opCodes[index]][flag] 
-            can_issue, currentStore = self.is_issue(instructionName,self.rs[index], self.rt[index], self.rd[index],index)
+            instructionName = opc[self.opCodes[index]][flag]
+            can_issue, currentStore = self.is_issue(
+                instructionName, self.rs[index], self.rt[index], self.rd[index], i)
             self.store = currentStore and self.store
+            # print("currentStore",currentStore)
+            # print("self.store",self.store)
+            # print(instructionName,can_issue)
+
             if can_issue:
-                if instructionName in ['LW','SW']:
+                rs_i = int(self.rs[index],2)
+                rd_i = int(self.rd[index],2)
+                rt_i = int(self.rt[index],2)
+                if instructionName in ['LW', 'SW']:
+                    if instructionName == "SW":
+                        if self.reg_r[rt_i] >= i:
+                            self.reg_r[rt_i] = 4
+                        if self.reg_r[rs_i] >= i:
+                            self.reg_r[rs_i] = 4
+                    if instructionName == "LW":
+                        if self.reg_r[rs_i] > i:
+                            self.reg_r[rs_i] = 4
+                        self.reg_w[rt_i] = -1
                     issued_alu1 += 1
-                    alu1.append(index) # 将指令放入alu1
+                    alu1.append(index)  # 将指令放入alu1
                     self.pre_issue.remove(index)
                 else:
+                    if instructionName in ["ADD", "SUB", "MUL", "AND", "OR", "XOR", "NOR"]:
+                        if self.reg_r[rt_i] >= i:
+                            self.reg_r[rt_i] = 4
+                        if self.reg_r[rs_i] >= i:
+                            self.reg_r[rs_i] = 4
+                        self.reg_w[rd_i] = -1
+                    if instructionName in ["ADDI", "ANDI", "ORI", "XORI"]:
+                        if self.reg_r[rs_i] >= i:
+                            self.reg_r[rs_i] = 4
+                        self.reg_w[rt_i] = -1
+                    if instructionName in ['SLL', 'SRL', 'SRA']:
+                        if self.reg_r[rt_i] >= i:
+                            self.reg_r[rt_i] = 4
+                        self.reg_w[rd_i] = -1
                     issued_alu2 += 1
                     alu2.append(index)
                     self.pre_issue.remove(index)
@@ -369,8 +415,8 @@ class scoreboarding:
         #     self.pre_issue.remove(j)
         # for j in alu2:
         #     self.pre_issue.remove(j)
-        return alu1,alu2
-    
+        return alu1, alu2
+
     def alu1(self):
         pre_mem = []
         if len(self.pre_alu1) > 0:
@@ -380,11 +426,11 @@ class scoreboarding:
 
     def alu2(self):
         post_alu2 = []
-        if len(self.pre_alu2) > 0 :
+        if len(self.pre_alu2) > 0:
             i = self.pre_alu2.pop(0)
             post_alu2.append(i)
         return post_alu2
-    
+
     def mem(self):
         post_mem = []
         if len(self.pre_mem) == 1:
@@ -392,46 +438,51 @@ class scoreboarding:
             flag = checkFlag(self.flags[i])
             instructionName = opc[self.opCodes[i]][flag]
             if instructionName == 'SW':
-                changeRegValues.switch[instructionName](self.rs[i], self.rt[i], self.rd[i], self.shiftAmts[i], self.functionCodes[i], self.regValues, self.memoryValues, self.dataAddress, self.currentAddress)
-                self.currentAddress -= 4
+                changeRegValues.switch[instructionName](self.rs[i], self.rt[i], self.rd[i], self.shiftAmts[i],
+                                                        self.functionCodes[i], self.regValues, self.memoryValues, self.dataAddress, self.currentAddress)
+                self.currentAddress[0] -= 4
             else:
                 post_mem.append(i)
         return post_mem
+
     def wb(self):
         if len(self.post_mem) == 1:
             i = self.post_mem.pop(0)
             flag = checkFlag(self.flags[i])
             instructionName = opc[self.opCodes[i]][flag]
-            changeRegValues.switch[instructionName](self.rs[i], self.rt[i], self.rd[i], self.shiftAmts[i], self.functionCodes[i], self.regValues, self.memoryValues, self.dataAddress, self.currentAddress)
+            changeRegValues.switch[instructionName](self.rs[i], self.rt[i], self.rd[i], self.shiftAmts[i],
+                                                    self.functionCodes[i], self.regValues, self.memoryValues, self.dataAddress, self.currentAddress)
             self.currentAddress[0] -= 4
-            rt_i = int(self.rt[i],2)
+            rt_i = int(self.rt[i], 2)
             self.reg_ready[rt_i] = True
             self.reg_w[rt_i] = 4
         if len(self.post_alu2) == 1:
             i = self.post_alu2.pop(0)
             flag = checkFlag(self.flags[i])
             instructionName = opc[self.opCodes[i]][flag]
-            changeRegValues.switch[instructionName](self.rs[i], self.rt[i], self.rd[i], self.shiftAmts[i], self.functionCodes[i], self.regValues, self.memoryValues, self.dataAddress, self.currentAddress)
+            changeRegValues.switch[instructionName](self.rs[i], self.rt[i], self.rd[i], self.shiftAmts[i],
+                                                    self.functionCodes[i], self.regValues, self.memoryValues, self.dataAddress, self.currentAddress)
             self.currentAddress[0] -= 4
-            rd_i = int(self.rd[i],2)
-            rt_i = int(self.rt[i],2)
-            if instructionName in ['SLL','SRA','SRL','ADD','SUB','AND','OR','XOR','NOR','SLT']:
+            rd_i = int(self.rd[i], 2)
+            rt_i = int(self.rt[i], 2)
+            if instructionName in ['SLL', 'SRA', 'SRL', 'ADD', 'SUB', 'AND', 'OR', 'XOR', 'NOR', 'SLT']:
                 self.reg_ready[rd_i] = True
                 self.reg_w[rd_i] = 4
-            if instructionName in ['ADDI','ANDI','ORI','XORI']:
+            if instructionName in ['ADDI', 'ANDI', 'ORI', 'XORI']:
                 self.reg_ready[rt_i] = True
                 self.reg_w[rt_i] = 4
 
-    def output(self,cycle):
+    def output(self, cycle):
         string = "--------------------\n"
-        string += "Cycle:" + str(cycle) + "\n" 
+        string += "Cycle:" + str(cycle) + "\n\n"
         string += "IF Unit:\n"
         string += "\tWaiting Instruction:"
         if self.waiting_instruction:
             i = int(self.waiting_instruction)
             flag = checkFlag(self.flags[i])
             instructionName = opc[self.opCodes[i]][flag]  # 获取指令名称
-            instructionArgs = instructions.switch[instructionName](self.rs[i], self.rt[i], self.rd[i], self.shiftAmts[i], self.functionCodes[i])
+            instructionArgs = instructions.switch[instructionName](
+                self.rs[i], self.rt[i], self.rd[i], self.shiftAmts[i], self.functionCodes[i])
             string += " [" + instructionName + " " + instructionArgs + "]\n"
         else:
             string += "\n"
@@ -440,8 +491,12 @@ class scoreboarding:
             i = int(self.executed_instruction)
             flag = checkFlag(self.flags[i])
             instructionName = opc[self.opCodes[i]][flag]  # 获取指令名称
-            instructionArgs = instructions.switch[instructionName](self.rs[i], self.rt[i], self.rd[i], self.shiftAmts[i], self.functionCodes[i])
-            string += " [" + instructionName + " " + instructionArgs + "]\n"
+            instructionArgs = instructions.switch[instructionName](
+                self.rs[i], self.rt[i], self.rd[i], self.shiftAmts[i], self.functionCodes[i])
+            if instructionName == "BREAK":
+                string += " ["+instructionName+"]\n"
+            else:
+                string += " [" + instructionName + " " + instructionArgs + "]\n"
         else:
             string += "\n"
         string += "Pre-Issue Queue:\n"
@@ -451,9 +506,10 @@ class scoreboarding:
                 j = self.pre_issue[i]
                 flag = checkFlag(self.flags[j])
                 instructionName = opc[self.opCodes[j]][flag]  # 获取指令名称
-                instructionArgs = instructions.switch[instructionName](self.rs[j], self.rt[j], self.rd[j], self.shiftAmts[j], self.functionCodes[j])
+                instructionArgs = instructions.switch[instructionName](
+                    self.rs[j], self.rt[j], self.rd[j], self.shiftAmts[j], self.functionCodes[j])
                 temp = " [" + instructionName + " " + instructionArgs + "]"
-            string += "\tEntry "+str(i)+":"+temp+"\n"
+            string += "\tEntry " + str(i) + ":" + temp + "\n"
         string += "Pre-ALU1 Queue:\n"
         for i in [0, 1]:
             temp = ""
@@ -461,25 +517,28 @@ class scoreboarding:
                 j = self.pre_alu1[i]
                 flag = checkFlag(self.flags[j])
                 instructionName = opc[self.opCodes[j]][flag]  # 获取指令名称
-                instructionArgs = instructions.switch[instructionName](self.rs[j], self.rt[j], self.rd[j], self.shiftAmts[j], self.functionCodes[j])
+                instructionArgs = instructions.switch[instructionName](
+                    self.rs[j], self.rt[j], self.rd[j], self.shiftAmts[j], self.functionCodes[j])
                 temp = " [" + instructionName + " " + instructionArgs + "]"
-            string += "\tEntry "+str(i)+":"+temp+"\n"
+            string += "\tEntry " + str(i) + ":" + temp + "\n"
         temp = ""
         if len(self.pre_mem) > 0:
             j = self.pre_mem[0]
             flag = checkFlag(self.flags[j])
             instructionName = opc[self.opCodes[j]][flag]  # 获取指令名称
-            instructionArgs = instructions.switch[instructionName](self.rs[j], self.rt[j], self.rd[j], self.shiftAmts[j], self.functionCodes[j])
+            instructionArgs = instructions.switch[instructionName](
+                self.rs[j], self.rt[j], self.rd[j], self.shiftAmts[j], self.functionCodes[j])
             temp = " [" + instructionName + " " + instructionArgs + "]"
-        string += "Pre-MEM Queue:"+temp+"\n"
+        string += "Pre-MEM Queue:" + temp + "\n"
         temp = ""
         if len(self.post_mem) > 0:
             j = self.post_mem[0]
             flag = checkFlag(self.flags[j])
             instructionName = opc[self.opCodes[j]][flag]  # 获取指令名称
-            instructionArgs = instructions.switch[instructionName](self.rs[j], self.rt[j], self.rd[j], self.shiftAmts[j], self.functionCodes[j])
+            instructionArgs = instructions.switch[instructionName](
+                self.rs[j], self.rt[j], self.rd[j], self.shiftAmts[j], self.functionCodes[j])
             temp = " [" + instructionName + " " + instructionArgs + "]"
-        string += "Post-MEM Queue:"+temp+"\n"
+        string += "Post-MEM Queue:" + temp + "\n"
         string += "Pre-ALU2 Queue:\n"
         for i in [0, 1]:
             temp = ""
@@ -487,30 +546,42 @@ class scoreboarding:
                 j = self.pre_alu2[i]
                 flag = checkFlag(self.flags[j])
                 instructionName = opc[self.opCodes[j]][flag]  # 获取指令名称
-                instructionArgs = instructions.switch[instructionName](self.rs[j], self.rt[j], self.rd[j], self.shiftAmts[j], self.functionCodes[j])
+                instructionArgs = instructions.switch[instructionName](
+                    self.rs[j], self.rt[j], self.rd[j], self.shiftAmts[j], self.functionCodes[j])
                 temp = " [" + instructionName + " " + instructionArgs + "]"
-            string += "\tEntry "+str(i)+":"+temp+"\n"
+            string += "\tEntry " + str(i) + ":" + temp + "\n"
         temp = ""
         if len(self.post_alu2) > 0:
             j = self.post_alu2[0]
             flag = checkFlag(self.flags[j])
             instructionName = opc[self.opCodes[j]][flag]  # 获取指令名称
-            instructionArgs = instructions.switch[instructionName](self.rs[j], self.rt[j], self.rd[j], self.shiftAmts[j], self.functionCodes[j])
+            instructionArgs = instructions.switch[instructionName](
+                self.rs[j], self.rt[j], self.rd[j], self.shiftAmts[j], self.functionCodes[j])
             temp = " [" + instructionName + " " + instructionArgs + "]"
         string += "Post-ALU2 Queue:" + temp + "\n"
+        string += '\nRegisters' + '\n'
+        string += 'R00:' + '\t' + str(self.regValues[0]) + '\t' + str(self.regValues[1]) + '\t' + str(self.regValues[2]) + '\t' + str(self.regValues[3]) + '\t' + str(self.regValues[4]) + '\t' + str(self.regValues[5]) + '\t' + str(self.regValues[6]) + '\t' + str(self.regValues[7]) + '\n'
+        string += 'R08:' + '\t' + str(self.regValues[8]) + '\t' + str(self.regValues[9]) + '\t' + str(self.regValues[10]) + '\t' + str(self.regValues[11]) + '\t' + str(self.regValues[12]) + '\t' +str(self.regValues[13]) + '\t' + str(self.regValues[14]) + '\t' + str(self.regValues[15]) + '\n'
+        string += 'R16:' + '\t' + str(self.regValues[16]) + '\t' + str(self.regValues[17]) + '\t' +str(self.regValues[18]) + '\t' + str(self.regValues[19]) + '\t' + str(self.regValues[20]) + '\t' +str(self.regValues[21]) + '\t' + str(self.regValues[22]) + '\t' + str(self.regValues[23]) + '\n'
+        string += 'R24:' + '\t' + str(self.regValues[24]) + '\t' + str(self.regValues[25]) + '\t' +str(self.regValues[26]) + '\t' + str(self.regValues[27]) + '\t' + str(self.regValues[28]) + '\t' +str(self.regValues[29]) + '\t' + str(self.regValues[30]) + '\t' + str(self.regValues[31]) + '\n'
+        string += '\n'
+        string += 'Data' + '\n'
+        string += str(self.dataAddress) + ':\t' + str(self.memoryValues[0]) + '\t' + str(self.memoryValues[1]) + '\t' + str(self.memoryValues[2]) + '\t' +str(self.memoryValues[3]) + '\t' + str(self.memoryValues[4]) + '\t' + str(self.memoryValues[5]) + '\t' +str(self.memoryValues[6]) + '\t' + str(self.memoryValues[7]) + '\n'
+        string += str(self.dataAddress + 32) + ':\t' + str(self.memoryValues[8]) + '\t' + str(self.memoryValues[9]) + '\t' + str(self.memoryValues[10]) + '\t' +str(self.memoryValues[11]) + '\t' + str(self.memoryValues[12]) + '\t' + str(self.memoryValues[13]) + '\t' +str(self.memoryValues[14]) + '\t' + str(self.memoryValues[15]) + '\n'
         return string
-    
-    def write2file(self,string):
+
+    def write2file(self, string):
         self.simOut.write(string)
-    
+
     def do(self):
-        simulation = ""
+        simulation=""
         while True:
-            fetched_instructions = self.if_unit()
-            alu1,alu2 = self.issue()
-            pre_mem = self.alu1()
-            post_alu2 = self.alu2()
+            fetched_instructions=self.if_unit()
+            alu1, alu2=self.issue()
+            pre_mem=self.alu1()
+            post_alu2=self.alu2()
             post_mem = self.mem()
+            # self.mem()
             self.wb()
             self.pre_issue.extend(fetched_instructions)
             self.pre_alu1.extend(alu1)
@@ -519,7 +590,7 @@ class scoreboarding:
             self.post_alu2.extend(post_alu2)
             self.post_mem.extend(post_mem)
             simulation += self.output(self.cycle)
-            print("循环次数",self.cycle)
+            print("循环次数", self.cycle)
             self.cycle += 1
             # print("执行指令",self.executed_instruction)
             # print("pre_issue",self.pre_issue)
@@ -528,9 +599,9 @@ class scoreboarding:
             # print("alu1:",alu1)
             # print("alu2:",alu2)
             # print("reg_ready:",self.reg_ready)
-            print(self.memoryValues)
+            # print(self.memoryValues)
             print("----------------------------------------")
-            if self.is_break or self.cycle == 20:
+            if self.is_break:
                 break
         # print(simulation)
         self.write2file(simulation)
@@ -540,9 +611,9 @@ class scoreboarding:
 
 
 def test():
-    filename = input("请输入二进制文件:\n")
-    instructions = read_bin(filename)
-    print(instructions[0][:2])
+    filename=input("请输入二进制文件:\n")
+    instructions=read_bin(filename)
+    print(instructions[0][:2]) 
 
 
 if __name__ == "__main__":

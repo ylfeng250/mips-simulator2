@@ -1,5 +1,6 @@
 --------------------
 Cycle:1
+
 IF Unit:
 	Waiting Instruction:
 	Executed Instruction:
@@ -17,8 +18,19 @@ Pre-ALU2 Queue:
 	Entry 0:
 	Entry 1:
 Post-ALU2 Queue:
+
+Registers
+R00:	0	0	0	0	0	0	0	0
+R08:	0	0	0	0	0	0	0	0
+R16:	0	0	0	0	0	0	0	0
+R24:	0	0	0	0	0	0	0	0
+
+Data
+300:	-1	-2	-3	1	2	4	-4	10
+332:	7	9	1	0	-1	1	-1	0
 --------------------
 Cycle:2
+
 IF Unit:
 	Waiting Instruction: [BEQ R1, R2, #28]
 	Executed Instruction:
@@ -36,8 +48,19 @@ Pre-ALU2 Queue:
 	Entry 0: [ADD R1, R0, R0]
 	Entry 1:
 Post-ALU2 Queue:
+
+Registers
+R00:	0	0	0	0	0	0	0	0
+R08:	0	0	0	0	0	0	0	0
+R16:	0	0	0	0	0	0	0	0
+R24:	0	0	0	0	0	0	0	0
+
+Data
+300:	-1	-2	-3	1	2	4	-4	10
+332:	7	9	1	0	-1	1	-1	0
 --------------------
 Cycle:3
+
 IF Unit:
 	Waiting Instruction: [BEQ R1, R2, #28]
 	Executed Instruction:
@@ -55,8 +78,19 @@ Pre-ALU2 Queue:
 	Entry 0: [ADDI R2, R0, #2]
 	Entry 1:
 Post-ALU2 Queue: [ADD R1, R0, R0]
+
+Registers
+R00:	0	0	0	0	0	0	0	0
+R08:	0	0	0	0	0	0	0	0
+R16:	0	0	0	0	0	0	0	0
+R24:	0	0	0	0	0	0	0	0
+
+Data
+300:	-1	-2	-3	1	2	4	-4	10
+332:	7	9	1	0	-1	1	-1	0
 --------------------
 Cycle:4
+
 IF Unit:
 	Waiting Instruction: [BEQ R1, R2, #28]
 	Executed Instruction:
@@ -74,8 +108,19 @@ Pre-ALU2 Queue:
 	Entry 0:
 	Entry 1:
 Post-ALU2 Queue: [ADDI R2, R0, #2]
+
+Registers
+R00:	0	0	0	0	0	0	0	0
+R08:	0	0	0	0	0	0	0	0
+R16:	0	0	0	0	0	0	0	0
+R24:	0	0	0	0	0	0	0	0
+
+Data
+300:	-1	-2	-3	1	2	4	-4	10
+332:	7	9	1	0	-1	1	-1	0
 --------------------
 Cycle:5
+
 IF Unit:
 	Waiting Instruction: [BEQ R1, R2, #28]
 	Executed Instruction:
@@ -93,8 +138,19 @@ Pre-ALU2 Queue:
 	Entry 0:
 	Entry 1:
 Post-ALU2 Queue:
+
+Registers
+R00:	0	0	2	0	0	0	0	0
+R08:	0	0	0	0	0	0	0	0
+R16:	0	0	0	0	0	0	0	0
+R24:	0	0	0	0	0	0	0	0
+
+Data
+300:	-1	-2	-3	1	2	4	-4	10
+332:	7	9	1	0	-1	1	-1	0
 --------------------
 Cycle:6
+
 IF Unit:
 	Waiting Instruction:
 	Executed Instruction: [BEQ R1, R2, #28]
@@ -112,8 +168,19 @@ Pre-ALU2 Queue:
 	Entry 0:
 	Entry 1:
 Post-ALU2 Queue:
+
+Registers
+R00:	0	0	2	0	0	0	0	0
+R08:	0	0	0	0	0	0	0	0
+R16:	0	0	0	0	0	0	0	0
+R24:	0	0	0	0	0	0	0	0
+
+Data
+300:	-1	-2	-3	1	2	4	-4	10
+332:	7	9	1	0	-1	1	-1	0
 --------------------
 Cycle:7
+
 IF Unit:
 	Waiting Instruction:
 	Executed Instruction:
@@ -131,8 +198,19 @@ Pre-ALU2 Queue:
 	Entry 0:
 	Entry 1:
 Post-ALU2 Queue:
+
+Registers
+R00:	0	0	2	0	0	0	0	0
+R08:	0	0	0	0	0	0	0	0
+R16:	0	0	0	0	0	0	0	0
+R24:	0	0	0	0	0	0	0	0
+
+Data
+300:	-1	-2	-3	1	2	4	-4	10
+332:	7	9	1	0	-1	1	-1	0
 --------------------
 Cycle:8
+
 IF Unit:
 	Waiting Instruction:
 	Executed Instruction:
@@ -150,8 +228,19 @@ Pre-ALU2 Queue:
 	Entry 0: [SLL R16, R1, #2]
 	Entry 1:
 Post-ALU2 Queue:
+
+Registers
+R00:	0	0	2	0	0	0	0	0
+R08:	0	0	0	0	0	0	0	0
+R16:	0	0	0	0	0	0	0	0
+R24:	0	0	0	0	0	0	0	0
+
+Data
+300:	-1	-2	-3	1	2	4	-4	10
+332:	7	9	1	0	-1	1	-1	0
 --------------------
 Cycle:9
+
 IF Unit:
 	Waiting Instruction:
 	Executed Instruction:
@@ -169,8 +258,19 @@ Pre-ALU2 Queue:
 	Entry 0:
 	Entry 1:
 Post-ALU2 Queue: [SLL R16, R1, #2]
+
+Registers
+R00:	0	0	2	0	0	0	0	0
+R08:	0	0	0	0	0	0	0	0
+R16:	0	0	0	0	0	0	0	0
+R24:	0	0	0	0	0	0	0	0
+
+Data
+300:	-1	-2	-3	1	2	4	-4	10
+332:	7	9	1	0	-1	1	-1	0
 --------------------
 Cycle:10
+
 IF Unit:
 	Waiting Instruction:
 	Executed Instruction:
@@ -188,8 +288,19 @@ Pre-ALU2 Queue:
 	Entry 0:
 	Entry 1:
 Post-ALU2 Queue:
+
+Registers
+R00:	0	0	2	0	0	0	0	0
+R08:	0	0	0	0	0	0	0	0
+R16:	0	0	0	0	0	0	0	0
+R24:	0	0	0	0	0	0	0	0
+
+Data
+300:	-1	-2	-3	1	2	4	-4	10
+332:	7	9	1	0	-1	1	-1	0
 --------------------
 Cycle:11
+
 IF Unit:
 	Waiting Instruction:
 	Executed Instruction:
@@ -197,7 +308,7 @@ Pre-Issue Queue:
 	Entry 0: [LW R4, 320(R16)]
 	Entry 1: [ADD R5, R3, R4]
 	Entry 2: [SW R5, 340(R16)]
-	Entry 3: [ADDI R1, R1, #1]
+	Entry 3:
 Pre-ALU1 Queue:
 	Entry 0: [LW R3, 300(R16)]
 	Entry 1:
@@ -207,18 +318,29 @@ Pre-ALU2 Queue:
 	Entry 0:
 	Entry 1:
 Post-ALU2 Queue:
+
+Registers
+R00:	0	0	2	0	0	0	0	0
+R08:	0	0	0	0	0	0	0	0
+R16:	0	0	0	0	0	0	0	0
+R24:	0	0	0	0	0	0	0	0
+
+Data
+300:	-1	-2	-3	1	2	4	-4	10
+332:	7	9	1	0	-1	1	-1	0
 --------------------
 Cycle:12
+
 IF Unit:
-	Waiting Instruction: [BEQ R1, R2, #28]
-	Executed Instruction: [J #264]
+	Waiting Instruction:
+	Executed Instruction:
 Pre-Issue Queue:
-	Entry 0: [LW R4, 320(R16)]
-	Entry 1: [ADD R5, R3, R4]
-	Entry 2: [SW R5, 340(R16)]
-	Entry 3: [ADDI R1, R1, #1]
+	Entry 0: [ADD R5, R3, R4]
+	Entry 1: [SW R5, 340(R16)]
+	Entry 2: [ADDI R1, R1, #1]
+	Entry 3:
 Pre-ALU1 Queue:
-	Entry 0:
+	Entry 0: [LW R4, 320(R16)]
 	Entry 1:
 Pre-MEM Queue: [LW R3, 300(R16)]
 Post-MEM Queue:
@@ -226,54 +348,87 @@ Pre-ALU2 Queue:
 	Entry 0:
 	Entry 1:
 Post-ALU2 Queue:
+
+Registers
+R00:	0	0	2	0	0	0	0	0
+R08:	0	0	0	0	0	0	0	0
+R16:	0	0	0	0	0	0	0	0
+R24:	0	0	0	0	0	0	0	0
+
+Data
+300:	-1	-2	-3	1	2	4	-4	10
+332:	7	9	1	0	-1	1	-1	0
 --------------------
 Cycle:13
+
 IF Unit:
-	Waiting Instruction: [BEQ R1, R2, #28]
-	Executed Instruction:
+	Waiting Instruction:
+	Executed Instruction: [J #264]
 Pre-Issue Queue:
-	Entry 0: [LW R4, 320(R16)]
-	Entry 1: [ADD R5, R3, R4]
-	Entry 2: [SW R5, 340(R16)]
-	Entry 3: [ADDI R1, R1, #1]
+	Entry 0: [ADD R5, R3, R4]
+	Entry 1: [SW R5, 340(R16)]
+	Entry 2:
+	Entry 3:
 Pre-ALU1 Queue:
 	Entry 0:
 	Entry 1:
-Pre-MEM Queue:
+Pre-MEM Queue: [LW R4, 320(R16)]
 Post-MEM Queue: [LW R3, 300(R16)]
 Pre-ALU2 Queue:
-	Entry 0:
+	Entry 0: [ADDI R1, R1, #1]
 	Entry 1:
 Post-ALU2 Queue:
+
+Registers
+R00:	0	0	2	0	0	0	0	0
+R08:	0	0	0	0	0	0	0	0
+R16:	0	0	0	0	0	0	0	0
+R24:	0	0	0	0	0	0	0	0
+
+Data
+300:	-1	-2	-3	1	2	4	-4	10
+332:	7	9	1	0	-1	1	-1	0
 --------------------
 Cycle:14
+
 IF Unit:
 	Waiting Instruction: [BEQ R1, R2, #28]
 	Executed Instruction:
 Pre-Issue Queue:
-	Entry 0: [LW R4, 320(R16)]
-	Entry 1: [ADD R5, R3, R4]
-	Entry 2: [SW R5, 340(R16)]
-	Entry 3: [ADDI R1, R1, #1]
+	Entry 0: [ADD R5, R3, R4]
+	Entry 1: [SW R5, 340(R16)]
+	Entry 2:
+	Entry 3:
 Pre-ALU1 Queue:
 	Entry 0:
 	Entry 1:
 Pre-MEM Queue:
-Post-MEM Queue:
+Post-MEM Queue: [LW R4, 320(R16)]
 Pre-ALU2 Queue:
 	Entry 0:
 	Entry 1:
-Post-ALU2 Queue:
+Post-ALU2 Queue: [ADDI R1, R1, #1]
+
+Registers
+R00:	0	0	2	-1	0	0	0	0
+R08:	0	0	0	0	0	0	0	0
+R16:	0	0	0	0	0	0	0	0
+R24:	0	0	0	0	0	0	0	0
+
+Data
+300:	-1	-2	-3	1	2	4	-4	10
+332:	7	9	1	0	-1	1	-1	0
 --------------------
 Cycle:15
+
 IF Unit:
 	Waiting Instruction: [BEQ R1, R2, #28]
 	Executed Instruction:
 Pre-Issue Queue:
-	Entry 0: [LW R4, 320(R16)]
-	Entry 1: [ADD R5, R3, R4]
-	Entry 2: [SW R5, 340(R16)]
-	Entry 3: [ADDI R1, R1, #1]
+	Entry 0: [ADD R5, R3, R4]
+	Entry 1: [SW R5, 340(R16)]
+	Entry 2:
+	Entry 3:
 Pre-ALU1 Queue:
 	Entry 0:
 	Entry 1:
@@ -283,35 +438,57 @@ Pre-ALU2 Queue:
 	Entry 0:
 	Entry 1:
 Post-ALU2 Queue:
+
+Registers
+R00:	0	1	2	-1	4	0	0	0
+R08:	0	0	0	0	0	0	0	0
+R16:	0	0	0	0	0	0	0	0
+R24:	0	0	0	0	0	0	0	0
+
+Data
+300:	-1	-2	-3	1	2	4	-4	10
+332:	7	9	1	0	-1	1	-1	0
 --------------------
 Cycle:16
+
 IF Unit:
-	Waiting Instruction: [BEQ R1, R2, #28]
-	Executed Instruction:
+	Waiting Instruction:
+	Executed Instruction: [BEQ R1, R2, #28]
 Pre-Issue Queue:
-	Entry 0: [LW R4, 320(R16)]
-	Entry 1: [ADD R5, R3, R4]
-	Entry 2: [SW R5, 340(R16)]
-	Entry 3: [ADDI R1, R1, #1]
+	Entry 0: [SW R5, 340(R16)]
+	Entry 1:
+	Entry 2:
+	Entry 3:
 Pre-ALU1 Queue:
 	Entry 0:
 	Entry 1:
 Pre-MEM Queue:
 Post-MEM Queue:
 Pre-ALU2 Queue:
-	Entry 0:
+	Entry 0: [ADD R5, R3, R4]
 	Entry 1:
 Post-ALU2 Queue:
+
+Registers
+R00:	0	1	2	-1	4	0	0	0
+R08:	0	0	0	0	0	0	0	0
+R16:	0	0	0	0	0	0	0	0
+R24:	0	0	0	0	0	0	0	0
+
+Data
+300:	-1	-2	-3	1	2	4	-4	10
+332:	7	9	1	0	-1	1	-1	0
 --------------------
 Cycle:17
+
 IF Unit:
-	Waiting Instruction: [BEQ R1, R2, #28]
+	Waiting Instruction:
 	Executed Instruction:
 Pre-Issue Queue:
-	Entry 0: [LW R4, 320(R16)]
-	Entry 1: [ADD R5, R3, R4]
-	Entry 2: [SW R5, 340(R16)]
-	Entry 3: [ADDI R1, R1, #1]
+	Entry 0: [SW R5, 340(R16)]
+	Entry 1: [SLL R16, R1, #2]
+	Entry 2: [LW R3, 300(R16)]
+	Entry 3:
 Pre-ALU1 Queue:
 	Entry 0:
 	Entry 1:
@@ -320,17 +497,28 @@ Post-MEM Queue:
 Pre-ALU2 Queue:
 	Entry 0:
 	Entry 1:
-Post-ALU2 Queue:
+Post-ALU2 Queue: [ADD R5, R3, R4]
+
+Registers
+R00:	0	1	2	-1	4	0	0	0
+R08:	0	0	0	0	0	0	0	0
+R16:	0	0	0	0	0	0	0	0
+R24:	0	0	0	0	0	0	0	0
+
+Data
+300:	-1	-2	-3	1	2	4	-4	10
+332:	7	9	1	0	-1	1	-1	0
 --------------------
 Cycle:18
+
 IF Unit:
-	Waiting Instruction: [BEQ R1, R2, #28]
+	Waiting Instruction:
 	Executed Instruction:
 Pre-Issue Queue:
-	Entry 0: [LW R4, 320(R16)]
-	Entry 1: [ADD R5, R3, R4]
-	Entry 2: [SW R5, 340(R16)]
-	Entry 3: [ADDI R1, R1, #1]
+	Entry 0: [SW R5, 340(R16)]
+	Entry 1: [SLL R16, R1, #2]
+	Entry 2: [LW R3, 300(R16)]
+	Entry 3: [LW R4, 320(R16)]
 Pre-ALU1 Queue:
 	Entry 0:
 	Entry 1:
@@ -340,16 +528,117 @@ Pre-ALU2 Queue:
 	Entry 0:
 	Entry 1:
 Post-ALU2 Queue:
+
+Registers
+R00:	0	1	2	-1	4	3	0	0
+R08:	0	0	0	0	0	0	0	0
+R16:	0	0	0	0	0	0	0	0
+R24:	0	0	0	0	0	0	0	0
+
+Data
+300:	-1	-2	-3	1	2	4	-4	10
+332:	7	9	1	0	-1	1	-1	0
 --------------------
 Cycle:19
+
 IF Unit:
-	Waiting Instruction: [BEQ R1, R2, #28]
+	Waiting Instruction:
 	Executed Instruction:
 Pre-Issue Queue:
-	Entry 0: [LW R4, 320(R16)]
-	Entry 1: [ADD R5, R3, R4]
-	Entry 2: [SW R5, 340(R16)]
-	Entry 3: [ADDI R1, R1, #1]
+	Entry 0: [SLL R16, R1, #2]
+	Entry 1: [LW R3, 300(R16)]
+	Entry 2: [LW R4, 320(R16)]
+	Entry 3:
+Pre-ALU1 Queue:
+	Entry 0: [SW R5, 340(R16)]
+	Entry 1:
+Pre-MEM Queue:
+Post-MEM Queue:
+Pre-ALU2 Queue:
+	Entry 0:
+	Entry 1:
+Post-ALU2 Queue:
+
+Registers
+R00:	0	1	2	-1	4	3	0	0
+R08:	0	0	0	0	0	0	0	0
+R16:	0	0	0	0	0	0	0	0
+R24:	0	0	0	0	0	0	0	0
+
+Data
+300:	-1	-2	-3	1	2	4	-4	10
+332:	7	9	1	0	-1	1	-1	0
+--------------------
+Cycle:20
+
+IF Unit:
+	Waiting Instruction:
+	Executed Instruction:
+Pre-Issue Queue:
+	Entry 0: [LW R3, 300(R16)]
+	Entry 1: [LW R4, 320(R16)]
+	Entry 2: [ADD R5, R3, R4]
+	Entry 3:
+Pre-ALU1 Queue:
+	Entry 0:
+	Entry 1:
+Pre-MEM Queue: [SW R5, 340(R16)]
+Post-MEM Queue:
+Pre-ALU2 Queue:
+	Entry 0: [SLL R16, R1, #2]
+	Entry 1:
+Post-ALU2 Queue:
+
+Registers
+R00:	0	1	2	-1	4	3	0	0
+R08:	0	0	0	0	0	0	0	0
+R16:	0	0	0	0	0	0	0	0
+R24:	0	0	0	0	0	0	0	0
+
+Data
+300:	-1	-2	-3	1	2	4	-4	10
+332:	7	9	1	0	-1	1	-1	0
+--------------------
+Cycle:21
+
+IF Unit:
+	Waiting Instruction:
+	Executed Instruction:
+Pre-Issue Queue:
+	Entry 0: [LW R3, 300(R16)]
+	Entry 1: [LW R4, 320(R16)]
+	Entry 2: [ADD R5, R3, R4]
+	Entry 3: [SW R5, 340(R16)]
+Pre-ALU1 Queue:
+	Entry 0:
+	Entry 1:
+Pre-MEM Queue:
+Post-MEM Queue:
+Pre-ALU2 Queue:
+	Entry 0:
+	Entry 1:
+Post-ALU2 Queue: [SLL R16, R1, #2]
+
+Registers
+R00:	0	1	2	-1	4	3	0	0
+R08:	0	0	0	0	0	0	0	0
+R16:	0	0	0	0	0	0	0	0
+R24:	0	0	0	0	0	0	0	0
+
+Data
+300:	-1	-2	-3	1	2	4	-4	10
+332:	7	9	3	0	-1	1	-1	0
+--------------------
+Cycle:22
+
+IF Unit:
+	Waiting Instruction:
+	Executed Instruction:
+Pre-Issue Queue:
+	Entry 0: [LW R3, 300(R16)]
+	Entry 1: [LW R4, 320(R16)]
+	Entry 2: [ADD R5, R3, R4]
+	Entry 3: [SW R5, 340(R16)]
 Pre-ALU1 Queue:
 	Entry 0:
 	Entry 1:
@@ -359,3 +648,223 @@ Pre-ALU2 Queue:
 	Entry 0:
 	Entry 1:
 Post-ALU2 Queue:
+
+Registers
+R00:	0	1	2	-1	4	3	0	0
+R08:	0	0	0	0	0	0	0	0
+R16:	4	0	0	0	0	0	0	0
+R24:	0	0	0	0	0	0	0	0
+
+Data
+300:	-1	-2	-3	1	2	4	-4	10
+332:	7	9	3	0	-1	1	-1	0
+--------------------
+Cycle:23
+
+IF Unit:
+	Waiting Instruction:
+	Executed Instruction:
+Pre-Issue Queue:
+	Entry 0: [LW R4, 320(R16)]
+	Entry 1: [ADD R5, R3, R4]
+	Entry 2: [SW R5, 340(R16)]
+	Entry 3:
+Pre-ALU1 Queue:
+	Entry 0: [LW R3, 300(R16)]
+	Entry 1:
+Pre-MEM Queue:
+Post-MEM Queue:
+Pre-ALU2 Queue:
+	Entry 0:
+	Entry 1:
+Post-ALU2 Queue:
+
+Registers
+R00:	0	1	2	-1	4	3	0	0
+R08:	0	0	0	0	0	0	0	0
+R16:	4	0	0	0	0	0	0	0
+R24:	0	0	0	0	0	0	0	0
+
+Data
+300:	-1	-2	-3	1	2	4	-4	10
+332:	7	9	3	0	-1	1	-1	0
+--------------------
+Cycle:24
+
+IF Unit:
+	Waiting Instruction:
+	Executed Instruction:
+Pre-Issue Queue:
+	Entry 0: [ADD R5, R3, R4]
+	Entry 1: [SW R5, 340(R16)]
+	Entry 2: [ADDI R1, R1, #1]
+	Entry 3:
+Pre-ALU1 Queue:
+	Entry 0: [LW R4, 320(R16)]
+	Entry 1:
+Pre-MEM Queue: [LW R3, 300(R16)]
+Post-MEM Queue:
+Pre-ALU2 Queue:
+	Entry 0:
+	Entry 1:
+Post-ALU2 Queue:
+
+Registers
+R00:	0	1	2	-1	4	3	0	0
+R08:	0	0	0	0	0	0	0	0
+R16:	4	0	0	0	0	0	0	0
+R24:	0	0	0	0	0	0	0	0
+
+Data
+300:	-1	-2	-3	1	2	4	-4	10
+332:	7	9	3	0	-1	1	-1	0
+--------------------
+Cycle:25
+
+IF Unit:
+	Waiting Instruction:
+	Executed Instruction: [J #264]
+Pre-Issue Queue:
+	Entry 0: [ADD R5, R3, R4]
+	Entry 1: [SW R5, 340(R16)]
+	Entry 2:
+	Entry 3:
+Pre-ALU1 Queue:
+	Entry 0:
+	Entry 1:
+Pre-MEM Queue: [LW R4, 320(R16)]
+Post-MEM Queue: [LW R3, 300(R16)]
+Pre-ALU2 Queue:
+	Entry 0: [ADDI R1, R1, #1]
+	Entry 1:
+Post-ALU2 Queue:
+
+Registers
+R00:	0	1	2	-1	4	3	0	0
+R08:	0	0	0	0	0	0	0	0
+R16:	4	0	0	0	0	0	0	0
+R24:	0	0	0	0	0	0	0	0
+
+Data
+300:	-1	-2	-3	1	2	4	-4	10
+332:	7	9	3	0	-1	1	-1	0
+--------------------
+Cycle:26
+
+IF Unit:
+	Waiting Instruction: [BEQ R1, R2, #28]
+	Executed Instruction:
+Pre-Issue Queue:
+	Entry 0: [ADD R5, R3, R4]
+	Entry 1: [SW R5, 340(R16)]
+	Entry 2:
+	Entry 3:
+Pre-ALU1 Queue:
+	Entry 0:
+	Entry 1:
+Pre-MEM Queue:
+Post-MEM Queue: [LW R4, 320(R16)]
+Pre-ALU2 Queue:
+	Entry 0:
+	Entry 1:
+Post-ALU2 Queue: [ADDI R1, R1, #1]
+
+Registers
+R00:	0	1	2	-2	4	3	0	0
+R08:	0	0	0	0	0	0	0	0
+R16:	4	0	0	0	0	0	0	0
+R24:	0	0	0	0	0	0	0	0
+
+Data
+300:	-1	-2	-3	1	2	4	-4	10
+332:	7	9	3	0	-1	1	-1	0
+--------------------
+Cycle:27
+
+IF Unit:
+	Waiting Instruction: [BEQ R1, R2, #28]
+	Executed Instruction:
+Pre-Issue Queue:
+	Entry 0: [ADD R5, R3, R4]
+	Entry 1: [SW R5, 340(R16)]
+	Entry 2:
+	Entry 3:
+Pre-ALU1 Queue:
+	Entry 0:
+	Entry 1:
+Pre-MEM Queue:
+Post-MEM Queue:
+Pre-ALU2 Queue:
+	Entry 0:
+	Entry 1:
+Post-ALU2 Queue:
+
+Registers
+R00:	0	2	2	-2	-4	3	0	0
+R08:	0	0	0	0	0	0	0	0
+R16:	4	0	0	0	0	0	0	0
+R24:	0	0	0	0	0	0	0	0
+
+Data
+300:	-1	-2	-3	1	2	4	-4	10
+332:	7	9	3	0	-1	1	-1	0
+--------------------
+Cycle:28
+
+IF Unit:
+	Waiting Instruction:
+	Executed Instruction: [BEQ R1, R2, #28]
+Pre-Issue Queue:
+	Entry 0: [SW R5, 340(R16)]
+	Entry 1:
+	Entry 2:
+	Entry 3:
+Pre-ALU1 Queue:
+	Entry 0:
+	Entry 1:
+Pre-MEM Queue:
+Post-MEM Queue:
+Pre-ALU2 Queue:
+	Entry 0: [ADD R5, R3, R4]
+	Entry 1:
+Post-ALU2 Queue:
+
+Registers
+R00:	0	2	2	-2	-4	3	0	0
+R08:	0	0	0	0	0	0	0	0
+R16:	4	0	0	0	0	0	0	0
+R24:	0	0	0	0	0	0	0	0
+
+Data
+300:	-1	-2	-3	1	2	4	-4	10
+332:	7	9	3	0	-1	1	-1	0
+--------------------
+Cycle:29
+
+IF Unit:
+	Waiting Instruction:
+	Executed Instruction:[BREAK]
+Pre-Issue Queue:
+	Entry 0: [SW R5, 340(R16)]
+	Entry 1:
+	Entry 2:
+	Entry 3:
+Pre-ALU1 Queue:
+	Entry 0:
+	Entry 1:
+Pre-MEM Queue:
+Post-MEM Queue:
+Pre-ALU2 Queue:
+	Entry 0:
+	Entry 1:
+Post-ALU2 Queue: [ADD R5, R3, R4]
+
+Registers
+R00:	0	2	2	-2	-4	3	0	0
+R08:	0	0	0	0	0	0	0	0
+R16:	4	0	0	0	0	0	0	0
+R24:	0	0	0	0	0	0	0	0
+
+Data
+300:	-1	-2	-3	1	2	4	-4	10
+332:	7	9	3	0	-1	1	-1	0
