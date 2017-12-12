@@ -4,7 +4,8 @@ def main():
     # 输入文件名称
     # filename = input("please input bin file\nfor example:sample.txt,you just input sample\n")
     # 修改输入方式，改成命令行的形式
-    filename = sys.argv[1]
+    # filename = sys.argv[1]
+    filename = "sample"
     outputFileName = filename + ".txt"
     currentAddress = [256] # 地址从256开始
     instructions = read_bin(outputFileName) # 获取所有的指令集
@@ -81,10 +82,9 @@ def main():
     #     isBreak = outputSim(dataAddress,currentAddress, flag, opCodes[i], rs[i], rt[i], rd[i], shiftAmts[i],
     #                                  functionCodes[i], regValues, memoryValues, count, simOut)
 
-
-
+    print(memoryValues)
     #scoreboarding 算法
-    s = scoreboarding(currentAddress,dataAddress,flags, opCodes, rs, rt, rd, shiftAmts, functionCodes, simOut)
+    s = scoreboarding(currentAddress,memoryValues,dataAddress,flags, opCodes, rs, rt, rd, shiftAmts, functionCodes, simOut)
     s.do()
 
 

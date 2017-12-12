@@ -79,6 +79,9 @@ def case_NOP(rs, rt, rd, shiftAmt,functionCode,regValues,memoryValues,dataAddres
 def case_ADD(rs, rt, rd, shiftAmt,functionCode,regValues,memoryValues,dataAddress,currentAddress):
     regValues[int(rd, 2)] = regValues[int(rs, 2)] + regValues[int(rt, 2)]
     currentAddress[0] = currentAddress[0] + 4
+    # print("rs:",regValues[int(rs, 2)])
+    # print("rt:",regValues[int(rt, 2)])
+    # print("ADD加法测试:",regValues)
 
 # SUB rd = rs - rt
 def case_SUB(rs, rt, rd, shiftAmt,functionCode,regValues,memoryValues,dataAddress,currentAddress):
@@ -123,6 +126,9 @@ def case_ADDI(rs, rt, rd, shiftAmt,functionCode,regValues,memoryValues,dataAddre
     immediate = rd + shiftAmt + functionCode
     regValues[int(rt, 2)] = regValues[int(rs, 2)] + int(immediate,2)
     currentAddress[0] = currentAddress[0] + 4
+    # print("rs:",regValues[int(rs, 2)])
+    # print("rt:",regValues[int(rt, 2)])
+    # print("ADDi加法测试:",regValues)
 
 # ANDI rt = rs AND immediate
 def case_ANDI(rs, rt, rd, shiftAmt,functionCode,regValues,memoryValues,dataAddress,currentAddress):
